@@ -1,0 +1,94 @@
+<% layout('layout/boilerplate.ejs')%>
+
+<div class="row">
+  <h1 class="text-center">Add a New Campground</h1>
+  <div class="col-6 offset-3">
+    <form
+      action="/campground"
+      method="POST"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
+      <label for="title" class="form-label">Enter title: </label>
+      <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="title..."
+        name="title"
+        id="title"
+        required
+      />
+      <label for="price" class="form-label">Enter price: </label>
+      <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="$..."
+        name="price"
+        id="price"
+        required
+      />
+      <label for="location" class="form-label">Enter location: </label>
+      <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="location..."
+        name="location"
+        id="location"
+        required
+      />
+      <label for="image" class="form-label">Enter url: </label>
+      <input
+        type="file"
+        class="form-control mb-3"
+        name="image"
+        id="image"
+        multiple
+      />
+      <!-- <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="url..."
+        name="image"
+        id="image"
+        required
+      /> -->
+      <label for="description" class="form-label">Enter description: </label>
+      <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="describe..."
+        name="description"
+        id="description"
+        required
+      />
+      <button class="btn btn-primary">Submit</button>
+      <br /><br />
+    </form>
+    <a href="/campground">Return back</a>
+  </div>
+</div>
+<script>
+  (() => {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll(".validated-form");
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach((form) => {
+      form.addEventListener(
+        "submit",
+        (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>

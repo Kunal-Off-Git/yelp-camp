@@ -1,0 +1,60 @@
+<% layout('layout/boilerplate.ejs')%>
+<div class="row">
+  <h1 class="text-center mt-5">Edit <%= campground.title%> Campground</h1>
+  <div class="col-6 offset-3">
+    <form
+      action="/campground/<%= campground._id%>?_method=PUT"
+      method="POST"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+      multiple
+    >
+      <label for="title" class="form-label">Enter title: </label>
+      <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="title..."
+        name="title"
+        id="title"
+        value="<%= campground.title%>"
+        required
+      />
+      <label for="price" class="form-label">Enter price: </label>
+      <input
+        required
+        type="text"
+        class="form-control mb-3"
+        placeholder="$..."
+        name="price"
+        id="price"
+        value="<%= campground.price%>"
+      />
+      <label for="location" class="form-label">Enter location: </label>
+      <input
+        required
+        type="text"
+        class="form-control mb-3"
+        placeholder="location..."
+        name="location"
+        id="location"
+        value="<%= campground.location%>"
+      />
+      <label for="image" class="form-label">Add Images</label>
+      <input type="file" name="image" id="image" class="form-control" />
+      <label for="description" class="form-label">Enter description: </label>
+      <input
+        required
+        type="text"
+        class="form-control mb-3"
+        placeholder="describe..."
+        name="description"
+        id="description"
+        value="<%= campground.description%>"
+      />
+      <button class="btn btn-primary">Submit</button>
+    </form>
+    <br /><br />
+    <a href="/campground">Return back</a>
+  </div>
+</div>
