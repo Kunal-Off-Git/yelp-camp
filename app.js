@@ -19,7 +19,7 @@ const MongoDBStore = require("connect-mongo")(session);
 
 const dbUrl = process.env.DB_URL;
 // ("mongodb://127.0.0.1:27017/yelp-camp");
-mongoose.connect("mongodb://127.0.0.1:27017/yelp-camp");
+mongoose.connect(dbUrl);
 
 const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
@@ -42,7 +42,7 @@ app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
 const store = new MongoDBStore({
-  url: "mongodb://127.0.0.1:27017/yelp-camp",
+  url: dbUrl,
   secret: "this-is-a-secret-key",
   touchAfter: 24 * 3600,
 });
@@ -100,6 +100,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error", { err });
 });
 
+const port = process.env.PORT || 3000;
+
 app.listen(3000, () => {
-  console.log("listening on port 3000");
+  console.log(`listening on port ${port}`);
 });
