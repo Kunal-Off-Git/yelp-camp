@@ -9,13 +9,15 @@ const path = require("path");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
-const session = require("express-session");
+// const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
-const MongoDBStore = require("connect-mongo")(session);
+
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 const dbUrl = process.env.DB_URL;
 // ("mongodb://127.0.0.1:27017/yelp-camp");
@@ -41,10 +43,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
 
-const store = new MongoDBStore({
-  url: dbUrl,
-  secret: "this-is-a-secret-key",
-  touchAfter: 24 * 3600,
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  touchAfter: 24 * 60 * 60,
+  crypto: {
+    secret: "this-is-a-secret-key",
+  },
 });
 
 store.on("error", function (e) {
